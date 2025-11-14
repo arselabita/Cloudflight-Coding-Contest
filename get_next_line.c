@@ -118,7 +118,7 @@ int main()
      int     i;
 
      i = 0;
-     file_descriptor = open("level2_2_large.in", O_RDONLY);
+     file_descriptor = open("level3/level3_1_small.in", O_RDONLY);
      if (file_descriptor == -1)
      {
          printf("Error opening the file");
@@ -143,43 +143,38 @@ int main()
 	 int j = 1;
 	while (lines && lines[j])
 	 {
-		int space = 0;
-		int time = 0;
-		for (int k = 0; lines[j][k]; k++)
+		char **tokens = ft_split(lines[j], ' ');
+		int movement = atoi(tokens[0]);
+		//printf("%d\n", movement);
+		int *arr;
+		int arr1[5] = {5, 4, 3, 2, 1};
+		int arr2[5] = {-5, -4, -3, -2, -1};
+		if (movement < 0)
 		{
-			//printf("atoi: %d\n", atoi(lines[j] + k));
-			//printf("Char: %c\n", lines[j][k]);
-			if ((lines[j][k] >= '0' && lines[j][k] <= '9') || lines[j][k] == '-')
-			{
-				bool minus = false;
-				if (lines[j][k] == '-')
-				{
-					k++;
-					minus = true;
-				}
-				int value = lines[j][k] - '0';
-				int valuefortime = value;
-				if (minus == true)
-					value *= -1;
-				//printf("Value: %d\n", value);
-				if (value < 0)
-				{
-					space -= 1;
-					time += valuefortime;
-				}
-				else if (value == 0)
-				{
-					space += 0;
-					time += 1;
-				}
-				else
-				{
-					space += 1;
-					time += valuefortime;
-				}
-			}
+			arr = arr2;
+			movement *= -1;
 		}
-		printf("%d %d\n", space, time);
+		else
+			arr = arr1;
+		int index = 0;
+		printf("0 ");
+		while (index < movement / 2)
+		{
+			printf("%d ", arr[index]);
+			index++;
+		}
+		if (movement % 2 != 0)
+		{
+			printf("%d ", arr[index]);
+		}
+		while (0 < index)
+		{
+			printf("%d ", arr[index - 1]);
+			index--;
+		}
+		printf("0\n");
+
+		free(tokens);
 		j++;
 	 }
 
