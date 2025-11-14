@@ -112,6 +112,7 @@ int main()
 {
      int     file_descriptor;
      char    *next_line;
+	 char	**lines = (char **)malloc(sizeof(char *) * 1);
      int     i;
 
      i = 0;
@@ -126,11 +127,35 @@ int main()
          next_line = get_next_line(file_descriptor);
          if (next_line == NULL)
              break ;
-         i++;
-         printf("%s\n", next_line);
-         free (next_line);
-         next_line = NULL;
+		lines[i] = (char *)malloc(sizeof(char) * (ft_strlen(next_line) + 1));
+		ft_strcpy(lines[i], next_line);
+        // printf("%s", next_line);
+		//lines[i] = next_line;
+		//printf("Line %d: %s", i + 1, lines[i]);
+        // free (next_line);
+		next_line = NULL;
+		i++;
      }
+	 lines[i] = NULL;
+
+	 int j = 1;
+	while (lines && lines[j])
+	 {
+		int sum = 0;
+		for (int k = 0; lines[j][k]; k++)
+		{
+			//printf("Char: %c\n", lines[j][k]);
+			if (lines[j][k] >= '0' && lines[j][k] <= '9')
+				sum += lines[j][k] - '0';
+		}
+			//sum += lines[j][k] - '0';
+		printf("%d\n", sum);
+		j++;
+	 }
+
+	 while (i-- > 0)
+		 free (lines[i]);
+	free(lines);
      close(file_descriptor); // Close the file
      return (0);
 }
