@@ -116,7 +116,7 @@ int main()
      int     i;
 
      i = 0;
-     file_descriptor = open("level1_1_small.in", O_RDONLY);
+     file_descriptor = open("level1_2_large.in", O_RDONLY);
      if (file_descriptor == -1)
      {
          printf("Error opening the file");
