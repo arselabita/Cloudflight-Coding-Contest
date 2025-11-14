@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 static char	*line_to_return(char *leftovers)
 {
@@ -117,7 +118,7 @@ int main()
      int     i;
 
      i = 0;
-     file_descriptor = open("level2_0_example.in", O_RDONLY);
+     file_descriptor = open("level2_2_large.in", O_RDONLY);
      if (file_descriptor == -1)
      {
          printf("Error opening the file");
@@ -148,15 +149,23 @@ int main()
 		{
 			//printf("atoi: %d\n", atoi(lines[j] + k));
 			//printf("Char: %c\n", lines[j][k]);
-			//if (lines[j][k] >= '0' && lines[j][k] <= '9')
-			//{
-				int value = atoi(lines[j] + k);
-				//int value = lines[j][k] - '0';
+			if ((lines[j][k] >= '0' && lines[j][k] <= '9') || lines[j][k] == '-')
+			{
+				bool minus = false;
+				if (lines[j][k] == '-')
+				{
+					k++;
+					minus = true;
+				}
+				int value = lines[j][k] - '0';
+				int valuefortime = value;
+				if (minus == true)
+					value *= -1;
 				//printf("Value: %d\n", value);
 				if (value < 0)
 				{
 					space -= 1;
-					time += value;
+					time += valuefortime;
 				}
 				else if (value == 0)
 				{
@@ -166,11 +175,10 @@ int main()
 				else
 				{
 					space += 1;
-					time += value;
+					time += valuefortime;
 				}
-			//}
+			}
 		}
-			//space += lines[j][k] - '0';
 		printf("%d %d\n", space, time);
 		j++;
 	 }
