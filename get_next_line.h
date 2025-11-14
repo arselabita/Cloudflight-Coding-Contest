@@ -26,6 +26,7 @@ void	ft_strcpy(char *dest, const char *src);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
+char	**ft_split(char const *s, char c);
 
 #endif
 

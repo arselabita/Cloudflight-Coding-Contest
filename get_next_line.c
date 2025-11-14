@@ -13,6 +13,8 @@
 #include "get_next_line.h"
 #include <stdio.h>
 #include <fcntl.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 static char	*line_to_return(char *leftovers)
 {
@@ -116,7 +118,7 @@ int main()
      int     i;
 
      i = 0;
-     file_descriptor = open("level1_1_small.in", O_RDONLY);
+     file_descriptor = open("level3/level3_2_large.in", O_RDONLY);
      if (file_descriptor == -1)
      {
          printf("Error opening the file");
@@ -141,15 +143,38 @@ int main()
 	 int j = 1;
 	while (lines && lines[j])
 	 {
-		int sum = 0;
-		for (int k = 0; lines[j][k]; k++)
+		char **tokens = ft_split(lines[j], ' ');
+		int movement = atoi(tokens[0]);
+		//printf("%d\n", movement);
+		int *arr;
+		int arr1[508] = {5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1, 2, 3, 4, 5, 4, 3, 2, 1};
+		int arr2[518] = {-5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5, -4, -3, -2, -1, -2, -3, -4, -5};
+		if (movement < 0)
 		{
-			//printf("Char: %c\n", lines[j][k]);
-			if (lines[j][k] >= '0' && lines[j][k] <= '9')
-				sum += lines[j][k] - '0';
+			arr = arr2;
+			movement *= -1;
 		}
-			//sum += lines[j][k] - '0';
-		printf("%d\n", sum);
+		else
+			arr = arr1;
+		int index = 0;
+		printf("0 ");
+		while (index < movement / 2)
+		{
+			printf("%d ", arr[index]);
+			index++;
+		}
+		if (movement % 2 != 0)
+		{
+			printf("%d ", arr[index]);
+		}
+		while (0 < index)
+		{
+			printf("%d ", arr[index - 1]);
+			index--;
+		}
+		printf("0\n");
+
+		free(tokens);
 		j++;
 	 }
 
